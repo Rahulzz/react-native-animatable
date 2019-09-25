@@ -319,7 +319,7 @@ export default function createAnimatableComponent(WrappedComponent) {
       }
     }
 
-    componentWillReceiveProps(props) {
+    componentDidUpdate(prevProps, prevState, snapshot) {
       const {
         animation,
         delay,
@@ -328,10 +328,10 @@ export default function createAnimatableComponent(WrappedComponent) {
         iterationDelay,
         transition,
         onAnimationBegin,
-      } = props;
+      } = this.props;
 
       if (transition) {
-        const values = getStyleValues(transition, props.style);
+        const values = getStyleValues(transition, this.props.style);
         this.transitionTo(values, duration, easing, delay);
       } else if (!deepEquals(animation, this.props.animation)) {
         if (animation) {
